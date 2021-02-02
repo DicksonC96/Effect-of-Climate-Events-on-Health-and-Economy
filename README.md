@@ -22,56 +22,38 @@ The data was sourced directly from the NOAA database website:
 
 ```r
 temp <- tempfile()
-download.file("https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2FStormData.csv.bz2", temp)
-```
-
-```
-## Warning in download.file("https://
-## d396qusza40orc.cloudfront.net/
-## repdata%2Fdata%2FStormData.csv.bz2", : InternetOpenUrl
-## failed: 'The server name or address could not be
-## resolved'
-```
-
-```
-## Error in download.file("https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2FStormData.csv.bz2", : cannot open URL 'https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2FStormData.csv.bz2'
-```
-
-```r
+download.file("http://d396qusza40orc.cloudfront.net/repdata%2Fdata%2FStormData.csv.bz2", temp)
 data <- read.csv(bzfile(temp, "repdata_data_StormData.csv"), header = TRUE)
-```
-
-```
-## Warning in bzfile(temp, "repdata_data_StormData.csv"):
-## cannot open bzip2-ed file 'C:
-## \Users\DELL\AppData\Local\Temp\RtmpsDWY7o\file35b8795b472a',
-## probable reason 'No such file or directory'
-```
-
-```
-## Error in bzfile(temp, "repdata_data_StormData.csv"): cannot open the connection
-```
-
-```r
 unlink(temp)
 tbl <- as_tibble(data)
-```
-
-```
-## Error in as.data.frame.default(value, stringsAsFactors = FALSE): cannot coerce class '"function"' to a data.frame
-```
-
-```r
 tbl
 ```
 
 ```
-## function (src, ...) 
-## {
-##     UseMethod("tbl")
-## }
-## <bytecode: 0x000002a618189d00>
-## <environment: namespace:dplyr>
+## # A tibble: 902,297 x 37
+##    STATE__ BGN_DATE BGN_TIME TIME_ZONE COUNTY COUNTYNAME STATE
+##      <dbl> <chr>    <chr>    <chr>      <dbl> <chr>      <chr>
+##  1       1 4/18/19~ 0130     CST           97 MOBILE     AL   
+##  2       1 4/18/19~ 0145     CST            3 BALDWIN    AL   
+##  3       1 2/20/19~ 1600     CST           57 FAYETTE    AL   
+##  4       1 6/8/195~ 0900     CST           89 MADISON    AL   
+##  5       1 11/15/1~ 1500     CST           43 CULLMAN    AL   
+##  6       1 11/15/1~ 2000     CST           77 LAUDERDALE AL   
+##  7       1 11/16/1~ 0100     CST            9 BLOUNT     AL   
+##  8       1 1/22/19~ 0900     CST          123 TALLAPOOSA AL   
+##  9       1 2/13/19~ 2000     CST          125 TUSCALOOSA AL   
+## 10       1 2/13/19~ 2000     CST           57 FAYETTE    AL   
+## # ... with 902,287 more rows, and 30 more variables:
+## #   EVTYPE <chr>, BGN_RANGE <dbl>, BGN_AZI <chr>,
+## #   BGN_LOCATI <chr>, END_DATE <chr>, END_TIME <chr>,
+## #   COUNTY_END <dbl>, COUNTYENDN <lgl>, END_RANGE <dbl>,
+## #   END_AZI <chr>, END_LOCATI <chr>, LENGTH <dbl>, WIDTH <dbl>,
+## #   F <int>, MAG <dbl>, FATALITIES <dbl>, INJURIES <dbl>,
+## #   PROPDMG <dbl>, PROPDMGEXP <chr>, CROPDMG <dbl>,
+## #   CROPDMGEXP <chr>, WFO <chr>, STATEOFFIC <chr>,
+## #   ZONENAMES <chr>, LATITUDE <dbl>, LONGITUDE <dbl>,
+## #   LATITUDE_E <dbl>, LONGITUDE_ <dbl>, REMARKS <chr>,
+## #   REFNUM <dbl>
 ```
 
 ### Results

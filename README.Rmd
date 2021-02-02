@@ -1,8 +1,5 @@
----
-title: "Effect of climate events on health and economy"
-author: "DicksonC"
-output: html_document
----
+# Effect of climate events on health and economy
+By: DicksonC  
 Dataset source: U.S. National Oceanic and Atmospheric Administration's (NOAA)  
 
 This project reflects the most devastating climate events affecting population health and nation's economy in general.  The NOAA storm database used will tracks characteristics of major storms and weather events in the United States, including when and where they occur, as well as estimates of any fatalities, injuries, and property damage.
@@ -13,7 +10,7 @@ library(dplyr)
 library(lattice)
 ```
 
-## Data Processing
+### Data Processing
 The data was sourced directly from the NOAA database website:  
 1. A temporary directory `temp` was created for storing the dataset temporarily.  
 2. Dataset was downloaded to the `temp` directory.  
@@ -30,8 +27,8 @@ tbl <- as_tibble(data)
 tbl
 ```
 
-## Results
-### Events that are most harmful with respect to population health
+### Results
+#### Events that are most harmful with respect to population health
 Here we groups our data and sort it out to get the event with highest fatalities and injuries combined:  
 1. Group by event types.  
 2. Summarize the data into sum of fatalities and injuries on each types of event group.  
@@ -61,7 +58,7 @@ barchart(fatalities+injuries ~ EVTYPE,
 
 Obviously from both the table and plot, **tornado event brings both the highest fatalities and injuries, followed by excessive heat**  
   
-### Event types that have the greatest economic consequences
+#### Event types that have the greatest economic consequences
 Here we groups our data and sort it out to get the event with the greatest economic losses in both property and crop:  
 1. Filter out "B" to get the largest unit in the group.  (The idea here is to choose events with both losses in billions instead of millions and thousands).  
 2. Group by event types.  

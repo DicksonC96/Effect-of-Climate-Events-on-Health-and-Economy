@@ -1,8 +1,5 @@
----
-title: "Effect of climate events on health and economy"
-author: "DicksonC"
-output: html_document
----
+# Effect of climate events on health and economy
+By: DicksonC  
 Dataset source: U.S. National Oceanic and Atmospheric Administration's (NOAA)  
 
 This project reflects the most devastating climate events affecting population health and nation's economy in general.  The NOAA storm database used will tracks characteristics of major storms and weather events in the United States, including when and where they occur, as well as estimates of any fatalities, injuries, and property damage.
@@ -14,7 +11,7 @@ library(dplyr)
 library(lattice)
 ```
 
-## Data Processing
+### Data Processing
 The data was sourced directly from the NOAA database website:  
 1. A temporary directory `temp` was created for storing the dataset temporarily.  
 2. Dataset was downloaded to the `temp` directory.  
@@ -77,8 +74,8 @@ tbl
 ## <environment: namespace:dplyr>
 ```
 
-## Results
-### Events that are most harmful with respect to population health
+### Results
+#### Events that are most harmful with respect to population health
 Here we groups our data and sort it out to get the event with highest fatalities and injuries combined:  
 1. Group by event types.  
 2. Summarize the data into sum of fatalities and injuries on each types of event group.  
@@ -94,26 +91,19 @@ health <- tbl %>%
           filter(injuries!=0 & fatalities!=0) %>%
           mutate(total = injuries + fatalities) %>%
           arrange(desc(total))
-```
-
-```
-## Warning: `group_by_()` is deprecated as of dplyr 0.7.0.
-## Please use `group_by()` instead.
-## See vignette('programming') for more help
-## This warning is displayed once every 8 hours.
-## Call `lifecycle::last_warnings()` to see where this warning was generated.
-```
-
-```
-## Error in UseMethod("group_by_"): no applicable method for 'group_by_' applied to an object of class "function"
-```
-
-```r
 head(health)
 ```
 
 ```
-## Error in head(health): object 'health' not found
+## # A tibble: 6 x 4
+##   EVTYPE         fatalities injuries total
+##   <chr>               <dbl>    <dbl> <dbl>
+## 1 TORNADO              5633    91346 96979
+## 2 EXCESSIVE HEAT       1903     6525  8428
+## 3 TSTM WIND             504     6957  7461
+## 4 FLOOD                 470     6789  7259
+## 5 LIGHTNING             816     5230  6046
+## 6 HEAT                  937     2100  3037
 ```
 
 
@@ -127,13 +117,11 @@ barchart(fatalities+injuries ~ EVTYPE,
          auto.key = list(space='right', text=c('Fatalities','Injuries')))
 ```
 
-```
-## Error in barchart.formula(fatalities + injuries ~ EVTYPE, data = health[1:5, : object 'health' not found
-```
+![plot of chunk healthplot](figure/healthplot-1.png)
 
 Obviously from both the table and plot, **tornado event brings both the highest fatalities and injuries, followed by excessive heat**  
   
-### Event types that have the greatest economic consequences
+#### Event types that have the greatest economic consequences
 Here we groups our data and sort it out to get the event with the greatest economic losses in both property and crop:  
 1. Filter out "B" to get the largest unit in the group.  (The idea here is to choose events with both losses in billions instead of millions and thousands).  
 2. Group by event types.  
@@ -148,26 +136,15 @@ economy <- tbl %>%
            summarize(propdmg = sum(PROPDMG), cropdmg = sum(CROPDMG)) %>%
            mutate(totaldmg = propdmg + cropdmg) %>%
            arrange(desc(totaldmg))
-```
-
-```
-## Warning: `filter_()` is deprecated as of dplyr 0.7.0.
-## Please use `filter()` instead.
-## See vignette('programming') for more help
-## This warning is displayed once every 8 hours.
-## Call `lifecycle::last_warnings()` to see where this warning was generated.
-```
-
-```
-## Error in UseMethod("filter_"): no applicable method for 'filter_' applied to an object of class "function"
-```
-
-```r
 economy
 ```
 
 ```
-## Error in eval(expr, envir, enclos): object 'economy' not found
+## # A tibble: 2 x 4
+##   EVTYPE            propdmg cropdmg totaldmg
+##   <chr>               <dbl>   <dbl>    <dbl>
+## 1 RIVER FLOOD          5       5       10   
+## 2 HURRICANE/TYPHOON    5.88    1.51     7.39
 ```
 
 
@@ -181,8 +158,6 @@ barchart(propdmg+cropdmg~EVTYPE,
          auto.key = list(space='right', text=c('Property','Crop')))
 ```
 
-```
-## Error in barchart.formula(propdmg + cropdmg ~ EVTYPE, data = economy, : object 'economy' not found
-```
+![plot of chunk economyplot](figure/economyplot-1.png)
 
 Although Hurricane/Typhoon brings a greater property damage, **River Flood results in a much higher economic losses** with property and crop combined.

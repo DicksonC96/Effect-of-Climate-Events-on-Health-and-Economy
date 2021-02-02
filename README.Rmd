@@ -20,7 +20,7 @@ The data was sourced directly from the NOAA database website:
 
 ```{r source, message=FALSE, cache=TRUE}
 temp <- tempfile()
-download.file("https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2FStormData.csv.bz2", temp)
+download.file("http://d396qusza40orc.cloudfront.net/repdata%2Fdata%2FStormData.csv.bz2", temp)
 data <- read.csv(bzfile(temp, "repdata_data_StormData.csv"), header = TRUE)
 unlink(temp)
 tbl <- as_tibble(data)
